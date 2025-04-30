@@ -56,13 +56,14 @@ def opt2():
 logins = []
 
 #var for contiune loop
-continuecode = True
+continuecode = 1
 def contorexit():
-    continuecode = False
+    continuecode = 2
     return continuecode
 #menu
-menu_options = input("login: 1\nregister: 2\nexit: 3\nChoice: ")
-while continuecode == True:
+
+while continuecode == 1:
+    menu_options = input("login: 1\nregister: 2\nexit: 3\nChoice: ")
     if menu_options == "1":
         opt1()
     elif menu_options == "2":
@@ -71,4 +72,5 @@ while continuecode == True:
         sys.exit
     else:
         print("pick a valid option")
-        
+    contorexit()
+    
