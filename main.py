@@ -20,7 +20,7 @@ def username_check():
             # print(login_username)
             for line in file:
                 if login_username in line:
-                    global password
+                    global username
                     username, password = line.strip().split(",")
                     contiune_username = 2
                 else:
@@ -32,28 +32,30 @@ def password_check():
         login_password = input("Password: ")
         # print(login_password)
         with open("logins.csv") as file:
-            print(login_password)
             for line in file:
                 if login_password in line:
                     post_login_options()
                     contiune_password = 2
+                    exit
                 else:
                     print("invalid password")
 
 def post_login_options():
+    templist = []
     login_options = input("change password: 1\nLogout: 2\nChoice: ")
     #if change password opens files as read
     if login_options == "1":
         #creates new line to append file execpt for changeding line
         with open("logins.csv") as file:
-            templist = []
-            new_password = input("New password: ")
             for line in file:
-                templist.append(line)
-                #opens files as write and writes templist to file
-                with open("logins", "w") as file:
-                    file.write(templist)
-                    exit()
+                username, password = line.rstrip().split(",")
+                if username == login_username:
+                    new_password = input("New password: ")
+                    templist.append(f"{username},{password}")
+                else:
+                    templist.append(line.strip())
+        with open("logins.csv", "w") as file:
+            file.write("\n".join(templist) + "\n")
     else:
         exit
 
